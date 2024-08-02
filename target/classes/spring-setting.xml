@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+		https://www.springframework.org/schema/beans/spring-beans.xsd">
+		<!-- 설정 > ML > SGML > XML -->
+
+	<bean id="exam" class="com.newlecture.web.entity.Exam"> <!-- IoC 컨테이너에서 객체를 생성해줌 -->
+		<property name="kor" value="30"></property>
+		<!-- collaborators and configuration for this bean go here -->
+	</bean>
+
+	<bean id="examService" class="com.newlecture.web.service.ExamService">
+		<property name="repository" ref="fileExamRepository"></property>
+		<!-- setRepository과 기본 생성자 중 데이터를 불러오는 방식을 정할 수 있음 -->
+		<!-- set 참조를 할지 변수 값을 넣을지 고를 수 있음 -->
+	</bean>
+
+	<bean id="fileExamRepository" class="com.newlecture.web.repository.FileExamRepository">
+		<!-- collaborators and configuration for this bean go here -->
+	</bean>
+
+</beans>

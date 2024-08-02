@@ -1,0 +1,12 @@
+@charset "UTF-8";
+
+.header-bg-color{
+    background-color: #009473;
+}
+.logo {
+    color: white;
+}
+a {
+    color: black;
+    text-decoration-line: none;
+}
