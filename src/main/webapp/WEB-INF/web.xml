@@ -8,8 +8,9 @@ metadata-complete="false">
 	스프링 리스너를 쓰기위해 위치 설정해주고 
 	ContextLoaderListener가 contextConfigLocation으로  spring-setting2.xml 읽음
 	contextConfigLocation은 ContextLoaderListener가 정의한 getInitParameter("location")의 "location" 같이 스프링 레퍼런스에서 정한 이름
+	https://docs.spring.io/spring-framework/reference/web/webmvc/mvc-servlet.html 
  -->
-<context-param>
+<!-- <context-param>
 	<param-name>contextConfigLocation</param-name>
 	<param-value>/WEB-INF/spring-setting2.xml</param-value>
 </context-param>
@@ -17,6 +18,28 @@ metadata-complete="false">
 	<listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
 </listener>
 
+
+<servlet>
+	내가 만든 설정파일을 알려주던가 dispatcher-servlet.xml 을 써서 기본 설정된 설정파일 이름을 쓰던가.
+	<servlet-name>dispatcher</servlet-name>
+	<servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+	<init-param> 을 안쓰면 기본 설정 파일 dispatcher-servlet.xml을 읽음
+	<init-param>
+		<param-name>contextConfigLocation</param-name>
+		<param-value>/WEB-INF/spring-dispatcher.xml</param-value>
+		<param-value>/WEB-INF/app.properties</param-value>
+	</init-param>
+	<load-on-startup>1</load-on-startup>
+</servlet>
+<servlet-mapping>
+	<servlet-name>dispatcher</servlet-name>
+	<url-pattern>/</url-pattern>
+</servlet-mapping> -->
+ 
+ <!-- 이 설정 파일은 xml이 아닌 자바에서 할 수 있다. 
+ 
+ org.springframework.web.WebApplicationInitializer.class -->
+ 
   <display-name>WebApp</display-name>
   <welcome-file-list>
     <welcome-file>index.html</welcome-file>

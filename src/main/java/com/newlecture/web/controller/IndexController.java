@@ -5,6 +5,8 @@ import java.util.List;
 
 import org.springframework.context.ApplicationContext;
 import org.springframework.web.context.support.WebApplicationContextUtils;
+import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.Controller;
 
 import com.newlecture.web.entity.Exam;
 import com.newlecture.web.service.ExamService;
@@ -16,8 +18,8 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
-@WebServlet("/index")
-public class IndexController extends HttpServlet {
+//@WebServlet("/index")
+public class IndexController extends HttpServlet implements Controller {
 	
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -38,5 +40,16 @@ public class IndexController extends HttpServlet {
 			e.printStackTrace();
 		}
 		
+	}
+
+//	https://docs.spring.io/spring-framework/docs/current/javadoc-api/org/springframework/web/servlet/ModelAndView.html
+	// Controller가 Model하고 View를 Return하기 위해 만들어진 Interface
+	@Override
+	public ModelAndView handleRequest(HttpServletRequest request, HttpServletResponse response) throws Exception {
+		ModelAndView mv = new ModelAndView("/WEB-INF/view/index.jsp");
+		mv.addObject("test", "Hello"); //  Add an attribute to the model.
+		System.out.println(mv.toString());
+		// mv를 return하면 request를 통해 공유해서 DispatcherServlet에서 꺼냄
+		return mv;
 	}
 }

@@ -10,6 +10,8 @@ import java.util.Arrays;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.Controller;
 
 import com.newlecture.web.entity.Exam;
 import com.newlecture.web.repository.jdbc.JDBCExamRepository;
@@ -23,12 +25,12 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.Part;
 
-@WebServlet("/exam/list") // Context 경로
+//@WebServlet("/exam/list") // Context 경로
 @MultipartConfig(maxFileSize = 100*1024*1024, maxRequestSize = 200*1024*1024)
 // fileSizeThreshold 설정한 크기를 넘어갈 때 메모리가 아닌 디스크에 저장함
 // maxFileSize 각 파일의 크기 byte
 // maxRequestSize 보내는 모든 파일의 총 크기
-public class ListController extends HttpServlet {
+public class ListController extends HttpServlet implements Controller {
 	
 //	@Autowired > 어떻게 DI를 할지 고민. Servlet은 Tomcat 영역이라 Spring의 영역과 분리되어 DI가 불가능하다.
 //	 리스너에게 톰캣이 로드 후나 시작한 후에 설정파일을 넘겨주는
@@ -124,5 +126,14 @@ public class ListController extends HttpServlet {
 		is.close();
 		fos.close();
 
+	}
+
+	@Override
+	public ModelAndView handleRequest(HttpServletRequest request, HttpServletResponse response) throws Exception {
+		ModelAndView mv = new ModelAndView("/WEB-INF/view/list.jsp");
+		mv.addObject("test", "Hello"); //  Add an attribute to the model.
+		System.out.println(mv.toString());
+		// mv를 return하면 request를 통해 공유해서 DispatcherServlet에서 꺼냄
+		return mv;
 	}
 }
